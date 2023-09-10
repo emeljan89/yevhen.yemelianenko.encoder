@@ -19,26 +19,26 @@ public class CLI {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter command (EN (encrypt),DE (decrypt),BF (brute force): ");
+        System.out.println("Enter command (ENCRYPT),(DECRYPT),(BRUTEFORCE): ");
         String command = scanner.nextLine().toUpperCase();
         System.out.println("Enter file path: ");
         String filePath = scanner.nextLine();
         int key = 0;
-        if (command.equals("EN") || command.equals("DE")) {
+        if (command.equals("ENCRYPT") || command.equals("DECRYPT")) {
             System.out.println("Enter key: ");
             key = scanner.nextInt();
         }
         try {
             String text = fileService.readFile(filePath);
             switch (command) {
-                case "EN":
+                case "ENCRYPT":
                     String encryptedContent = caesarCipher.encrypt(text, key);
                     System.out.println(encryptedContent);
                     fileService.writeFile(getEncryptedFileName(filePath), encryptedContent);
                     System.out.println("Encrypt completed.");
                     break;
 
-                case "DE":
+                case "DECRYPT":
                     System.out.println("Enter key:");
                     key = scanner.nextInt();
                     String decryptedContent = caesarCipher.decrypt(text, key);
@@ -47,7 +47,7 @@ public class CLI {
                     System.out.println("Decrypt completed.");
                     break;
 
-                case "BF":
+                case "BRUTEFORCE":
                     FrequencyAnalyzer.analyzeFrequency(filePath);
                     break;
                 default:
